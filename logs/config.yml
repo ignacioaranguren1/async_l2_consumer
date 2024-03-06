@@ -1,0 +1,65 @@
+version: 1
+disable_existing_loggers: true
+
+
+formatters:
+    standard:
+        format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    error:
+        format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+handlers:
+    console:
+        class: logging.StreamHandler
+        level: DEBUG
+        formatter: standard
+        stream: ext://sys.stdout
+    data_manager_file_hdnlr:
+        class: logging.handlers.RotatingFileHandler
+        formatter: standard
+        filename: /tmp/data_manager.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+    data_manager_client_file_hdnlr:
+        class: logging.handlers.RotatingFileHandler
+        formatter: standard
+        filename: /tmp/data_manager_client.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+    data_manager_processor_file_hdnlr:
+        class: logging.handlers.RotatingFileHandler
+        formatter: standard
+        filename: /tmp/processor.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+    l2_manager_file_hdnlr:
+        class: logging.handlers.RotatingFileHandler
+        formatter: standard
+        filename: /tmp/l2_manager.log
+        maxBytes: 10485760 # 10MB
+        backupCount: 20
+        encoding: utf8
+root:
+    level: NOTSET
+    handlers: []
+    propogate: yes
+
+loggers:
+    data_manager_client:
+        level: INFO
+        handlers: [ data_manager_client_file_hdnlr]
+        propogate: no
+    data_manager_processor:
+        level: INFO
+        handlers: [ data_manager_processor_file_hdnlr ]
+        propogate: no
+    data_manager:
+        level: INFO
+        handlers: [ data_manager_file_hdnlr ]
+        propogate: no
+    l2_manager:
+        level: INFO
+        handlers: [ data_manager_file_hdnlr ]
+        propogate: no
